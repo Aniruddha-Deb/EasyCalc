@@ -9,6 +9,9 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import com.sensei.EasyCalc.core.*;
 
@@ -63,14 +66,44 @@ public class EasyCalc extends JFrame implements KeyListener{
 	
 	private void setFrameAttributes() {
 		log( "\tSetting frame attributes" );
+		
 		super.setTitle( "EasyCalc" );
 		super.setLocationRelativeTo( null );
 		super.setSize( 300, 350 );
+		
 		super.addKeyListener( this );
 		super.setFocusable( true );
 		super.requestFocusInWindow();
+		
+		setSystemLookAndFeel();
+		
 		super.setResizable( false );
 		super.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	}
+	
+	private void setSystemLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+		} 
+		catch (ClassNotFoundException e) {
+			setDefaultLookAndFeel();
+		} 
+		catch (InstantiationException e) {
+			setDefaultLookAndFeel();
+		} 
+		catch (IllegalAccessException e) {
+			setDefaultLookAndFeel();
+		} 
+		catch (UnsupportedLookAndFeelException e) {
+			setDefaultLookAndFeel();
+		}
+	}
+	
+	private void setDefaultLookAndFeel() {
+		try {
+			UIManager.setLookAndFeel( new MetalLookAndFeel() );
+		} catch (UnsupportedLookAndFeelException e1) {
+		}
 	}
 	
 	private void refreshOutput( boolean showSeparator ) {
