@@ -193,10 +193,10 @@ public class EasyCalc extends JFrame implements KeyListener{
 		if( s.matches( "[0-9+\\-*/()\\.]" ) ) {
 			inputPanel.doClick( s );
 		}
-		else if( e.getExtendedKeyCode() == KeyEvent.VK_ENTER || s.matches( "=" ) ) {
+		else if( s.matches( "\\n" ) || s.matches( "=" ) ) {
 			inputPanel.doClick( "=" );
 		}
-		else if( e.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE ) {
+		else if( s.matches( "\b" ) ) {
 			inputPanel.doClick( "Del" );
 		}
 		else if( s.equalsIgnoreCase( "c" ) ) {
