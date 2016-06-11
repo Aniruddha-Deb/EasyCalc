@@ -1,0 +1,33 @@
+                    EasyCalc v.1.1 Beta release 1
+                    Successfully released on --
+                    
+    EasyCalc: Make calculation Easier, better and faster
+    
+    EasyCalc is an advanced calculator with many futuristic abilities. EasyCalc 
+has the ability to display complete expressions unlike many calculators, hence 
+making calculation much easier. The main features of EasyCalc however, lie under 
+the hood, where an advanced interpreter-parser weaves its magic, simplifying
+expressions via the BODMAS rule. The many features of EasyCalc, combined, make it 
+an extremely versatile calculator. 
+
+Complete changelog:
+    * Streamlined Look and feel of UI
+    * Added smart lexing and parsing methods
+    * Added logical error checking
+    * Refined font and typeface
+    * Implemented bracket usability
+    * Implemented keyboard input
+    
+================================================================================
+                    EayCalc v.1.2 Changelog:
+    
+* Power implementation
+    2^3, 2^2
+    i.e. introduction of a new operator ^ (raised to the power)
+    
+* Root implementation
+    2√3 or 2V3 
+    i.e introduction of a new operator V (radical)
+    
+================================================================================
+    
