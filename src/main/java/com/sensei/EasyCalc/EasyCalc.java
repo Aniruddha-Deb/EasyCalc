@@ -1,6 +1,7 @@
 package com.sensei.EasyCalc;
 
 import static com.sensei.EasyCalc.Logger.log;
+import com.sensei.EasyCalc.core.*;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -12,8 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.metal.MetalLookAndFeel;
-
-import com.sensei.EasyCalc.core.*;
 
 @SuppressWarnings("serial")
 public class EasyCalc extends JFrame implements KeyListener{
