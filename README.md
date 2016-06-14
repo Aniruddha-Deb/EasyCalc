@@ -7,5 +7,5 @@ It contains advanced features including a sleek, modern UI, Full expression disp
 complete keyboard integration and an extremely powerful and advanced Parse Engine. 
 These features combine to make EasyCalc one of the most refined calculators on the market.
 
-Project Download Site: <aniruddha-deb.github.io/EasyCalc>
+Project Download Site: aniruddha-deb.github.io/EasyCalc
 
