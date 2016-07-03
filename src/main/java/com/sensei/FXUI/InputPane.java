@@ -1,18 +1,14 @@
 package com.sensei.FXUI;
 
-import javax.swing.JButton;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class InputPane extends GridPane {
 	
 	MainStage stage = null;
 	GridPane layout = null;
+	Button button = null;
 	
 	public InputPane( MainStage stage ) {
 		this.stage = stage;
@@ -41,14 +37,13 @@ public class InputPane extends GridPane {
 	
 	private void makeComponents() {
 		layout = new GridPane();
-		layout.setHgap( 5 );
-		layout.setVgap( 5 );
+		layout.setHgap( -1 );
+		layout.setVgap( -1 );
 		
 		for( int row=0; row<5; row++ ) {
 			for( int col=0; col<4; col++ ) {
 				Button button = new Button( buttonTexts[row][col] );
-				button.setPadding( new Insets( 10, 10, 10, 10 ) );
-				button.setPrefSize( 60, 60 );
+				button.setPrefSize( 60, 55 );
 				layout.add( button, col, row );
 				button.setOnAction( e -> stage.out( button.getText() ) );
 			}

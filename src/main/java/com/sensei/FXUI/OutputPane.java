@@ -24,7 +24,7 @@ public class OutputPane extends GridPane {
 		output = new TextField();
 		output.setEditable( false );
 		output.setFont( Font.font( "Helvetica", 20 ) );
-		output.setPrefSize( USE_COMPUTED_SIZE, USE_COMPUTED_SIZE + 100 );
+		output.setPrefSize( USE_COMPUTED_SIZE, USE_COMPUTED_SIZE + 50);
 		output.setFocusTraversable( false );
 		
 		layout.getChildren().add( output );

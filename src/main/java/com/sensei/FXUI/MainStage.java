@@ -35,19 +35,17 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 
 	private void addComponentsToStage( Stage stage ) {
 		GridPane layout = new GridPane();
-		layout.setPadding( new Insets( 10, 10, 10, 10 ) );
-		layout.setVgap( 10 );
 		layout.add( outputPane, 0, 0 );
 		layout.add( inputPane, 0, 1 );
 		
 		Scene scene = new Scene( layout, 270, 350 );
 		scene.addEventHandler( KeyEvent.KEY_PRESSED, event -> handle(event) );
+		scene.getStylesheets().add( MainStage.class.getResource( "LookAndFeel.css" ).toExternalForm() );
 		stage.setScene( scene );
 	}
 
 	private void setStageAttributes( Stage stage ) {
 		stage.setTitle( "EasyCalc" );
-		stage.setResizable( false );
 		stage.show();
 	}
 	
