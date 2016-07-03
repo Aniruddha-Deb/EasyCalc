@@ -1,6 +1,5 @@
 package com.sensei.FXUI;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -42,10 +41,20 @@ public class InputPane extends GridPane {
 		
 		for( int row=0; row<5; row++ ) {
 			for( int col=0; col<4; col++ ) {
-				Button button = new Button( buttonTexts[row][col] );
-				button.setPrefSize( 60, 55 );
-				layout.add( button, col, row );
-				button.setOnAction( e -> stage.out( button.getText() ) );
+				if( row > 0 && row <= 3 && col < 3 ) {
+					Button button = new Button( buttonTexts[row][col] );
+					button.setId( "numpad" );
+					button.setPrefSize( 70, 60 );
+					layout.add( button, col, row );
+					button.setOnAction( e -> stage.out( button.getText() ) );
+				}
+				else {
+					Button button = new Button( buttonTexts[row][col] );
+					button.setId( "other" );
+					button.setPrefSize( 70, 60 );
+					layout.add( button, col, row );
+					button.setOnAction( e -> stage.out( button.getText() ) );
+				}
 			}
 		}
 		super.getChildren().add( layout );

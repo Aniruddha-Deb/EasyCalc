@@ -2,13 +2,9 @@ package com.sensei.FXUI;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainStage extends Application implements EventHandler<KeyEvent>{
@@ -37,8 +33,9 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 		GridPane layout = new GridPane();
 		layout.add( outputPane, 0, 0 );
 		layout.add( inputPane, 0, 1 );
+		layout.setStyle( "-fx-background-color: transparent" );
 		
-		Scene scene = new Scene( layout, 270, 350 );
+		Scene scene = new Scene( layout, 277, 345 );
 		scene.addEventHandler( KeyEvent.KEY_PRESSED, event -> handle(event) );
 		scene.getStylesheets().add( MainStage.class.getResource( "LookAndFeel.css" ).toExternalForm() );
 		stage.setScene( scene );
@@ -46,6 +43,7 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 
 	private void setStageAttributes( Stage stage ) {
 		stage.setTitle( "EasyCalc" );
+		stage.setResizable( false );
 		stage.show();
 	}
 	
