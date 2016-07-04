@@ -41,12 +41,32 @@ public class InputPane extends GridPane {
 		
 		for( int row=0; row<5; row++ ) {
 			for( int col=0; col<4; col++ ) {
-				if( row > 0 && row <= 3 && col < 3 ) {
+				if( row > 0 && row <= 3 && col < 3 || 
+					row == 4 && col<2 ) {
 					Button button = new Button( buttonTexts[row][col] );
 					button.setId( "numpad" );
 					button.setPrefSize( 70, 60 );
 					layout.add( button, col, row );
 					button.setOnAction( e -> stage.out( button.getText() ) );
+					
+					// Animation
+					button.setOnMouseEntered( e -> button.setStyle( 
+							"-fx-background-color: rgb(179,179,179)" ) );
+					button.setOnMouseExited( e -> button.setStyle( 
+							"-fx-background-color: rgb(204,204,204)" ) );
+				}
+				else if( row == 0 && col < 3 ) {
+					Button button = new Button( buttonTexts[row][col] );
+					button.setId( "commands" );
+					button.setPrefSize( 70, 60 );
+					layout.add( button, col, row );
+					button.setOnAction( e -> stage.out( button.getText() ) );
+					
+					// Animation
+					button.setOnMouseEntered( e -> button.setStyle( 
+							"-fx-background-color: rgb(179,179,179)" ) );
+					button.setOnMouseExited( e -> button.setStyle( 
+							"-fx-background-color: rgb(204,204,204)" ) );
 				}
 				else {
 					Button button = new Button( buttonTexts[row][col] );
@@ -54,6 +74,12 @@ public class InputPane extends GridPane {
 					button.setPrefSize( 70, 60 );
 					layout.add( button, col, row );
 					button.setOnAction( e -> stage.out( button.getText() ) );
+					
+					// Animation
+					button.setOnMouseEntered( e -> button.setStyle( 
+							"-fx-background-color: rgb(179,179,179)" ) );
+					button.setOnMouseExited( e -> button.setStyle( 
+							"-fx-background-color: rgb(204,204,204)" ) );
 				}
 			}
 		}

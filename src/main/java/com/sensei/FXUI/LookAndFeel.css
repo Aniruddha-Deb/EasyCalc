@@ -3,9 +3,9 @@
 }
 
 #other {
-    -fx-background-color: rgb(233,148,67); 
+    -fx-background-color: rgb(204,204,204); 
     -fx-font-size: 20px;
-    -fx-text-fill: rgb(230,230,230);
+    -fx-text-fill: rgb(255,128,0);
     -fx-background-radius: 0;
 }
 
@@ -13,6 +13,13 @@
     -fx-background-color: rgb(204,204,204) ; 
     -fx-font-size: 20px;
     -fx-text-fill: rgb(51,51,51) ;
+    -fx-background-radius: 0;
+}
+
+#commands {
+    -fx-background-color: rgb(204,204,204) ; 
+    -fx-font-size: 20px;
+    -fx-text-fill: rgb(29,199,19) ;
     -fx-background-radius: 0;
 }
 

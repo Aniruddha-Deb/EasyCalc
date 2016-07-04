@@ -3,6 +3,7 @@ package com.sensei.FXUI;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -60,11 +61,11 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 			inputPane.doClick( s );
 			System.out.println( "Clicked" );
 		}
-		else if( s.matches( "\\n" ) || s.matches( "=" ) ) {
+		else if( event.getCode().equals( KeyCode.ENTER ) ) {
 			inputPane.doClick( "=" );
 			System.out.println( "Clicked" );
 		}
-		else if( s.matches( "\b" ) ) {
+		else if( event.getCode().equals( KeyCode.BACK_SPACE ) ) {
 			inputPane.doClick( "Del" );
 			System.out.println( "Clicked" );
 		}
