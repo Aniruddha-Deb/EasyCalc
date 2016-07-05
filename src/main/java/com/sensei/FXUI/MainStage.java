@@ -29,7 +29,6 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 		outputPane = new OutputPane();
 	}
 	
-
 	private void addComponentsToStage( Stage stage ) {
 		GridPane layout = new GridPane();
 		layout.add( outputPane, 0, 0 );
@@ -54,24 +53,19 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 
 	@Override
 	public void handle(KeyEvent event) {
-		System.out.println( "Entered" );
 		String s = event.getText() + "";
 		
 		if( s.matches( "[0-9+\\-*/()\\.]" ) ) {
 			inputPane.doClick( s );
-			System.out.println( "Clicked" );
 		}
-		else if( event.getCode().equals( KeyCode.ENTER ) ) {
+		else if( s.matches( "=" ) || event.getCode().equals( KeyCode.ENTER ) ) {
 			inputPane.doClick( "=" );
-			System.out.println( "Clicked" );
 		}
 		else if( event.getCode().equals( KeyCode.BACK_SPACE ) ) {
 			inputPane.doClick( "Del" );
-			System.out.println( "Clicked" );
 		}
 		else if( s.equalsIgnoreCase( "c" ) ) {
 			inputPane.doClick( "C" );
-			System.out.println( "Clicked" );
 		}
 	}
 }
