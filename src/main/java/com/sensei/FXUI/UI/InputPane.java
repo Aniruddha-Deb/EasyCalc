@@ -1,4 +1,4 @@
-package com.sensei.FXUI;
+package com.sensei.FXUI.UI;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
@@ -7,7 +7,6 @@ public class InputPane extends GridPane {
 	
 	MainStage stage = null;
 	GridPane layout = null;
-	Button button = null;
 	
 	public InputPane( MainStage stage ) {
 		this.stage = stage;
@@ -38,7 +37,7 @@ public class InputPane extends GridPane {
 		Button button = new Button( text );
 		button.setId( ID );
 		button.setPrefSize( 70, 60 );
-		button.setOnAction( e -> stage.out( button.getText() ) );
+		button.setOnAction( e -> handleButtonPressEvent( button.getText() ) );
 		
 		// Animation
 		button.setOnMouseEntered( e -> button.setStyle( 
@@ -79,22 +78,17 @@ public class InputPane extends GridPane {
 		super.getChildren().add( layout );
 	}
 	
-	public void doClick( String text ) {
-		for( int i=0; i<20; i++ ) {
-			Button button = (Button) layout.getChildren().get(i);
-			
-			if( text.equals( "*" ) && button.getText().equals( "\u00d7" ) ) {
-				button.fire();
-			}
-			else if( text.equals( "-" ) && button.getText().equals( "\u2212" ) ) {
-				button.fire();
-			}
-			else if( text.equals( "/" ) && button.getText().equals( "\u00f7" ) ) {
-				button.fire();
-			}
-			else if( button.getText().equals( text ) ) {
-				button.fire();
-			}
+	private void handleButtonPressEvent( String keyPressed ) {
+		if( keyPressed.equals( "\u00d7" ) ) {
+			keyPressed = "*" ;
 		}
+		else if( keyPressed.equals( "\u2212" ) ) {
+			keyPressed = "-" ;
+		}
+		else if( keyPressed.equals( "\u00f7" ) ) {
+			keyPressed = "/" ;
+		}
+		stage.inputEntered( keyPressed );
 	}
+
 }

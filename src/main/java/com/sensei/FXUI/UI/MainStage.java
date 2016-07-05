@@ -1,4 +1,8 @@
-package com.sensei.FXUI;
+package com.sensei.FXUI.UI;
+
+import static com.sensei.EasyCalc.Logger.log;
+
+import com.sensei.FXUI.Controller;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -12,11 +16,13 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	
 	private InputPane  inputPane  = null;
 	private OutputPane outputPane = null;
+	private String     input      = null;
+	private Controller controller = null;
 
-	public static void main(String[] args) {
-		launch( args );
+	public MainStage( Controller controller ) {
+		this.controller = controller;
 	}
-
+	
 	@Override
 	public void start( Stage primaryStage ) throws Exception {
 		createComponents();
@@ -25,8 +31,9 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	}
 
 	private void createComponents() {
+		input = new String();
 		inputPane = new InputPane( this );
-		outputPane = new OutputPane();
+		outputPane = new OutputPane( this );
 	}
 	
 	private void addComponentsToStage( Stage stage ) {
@@ -47,8 +54,14 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 		stage.show();
 	}
 	
-	public void out( String text ) {
-		outputPane.setText( outputPane.getText() + text );
+	public void inputEntered( String inputEntered ) {
+		this.input = inputEntered;
+		log( "Input entered = " + inputEntered );
+		controller.updateInput( input );
+	}
+	
+	public OutputPane getOutputPane() {
+		return outputPane;
 	}
 
 	@Override
@@ -56,16 +69,16 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 		String s = event.getText() + "";
 		
 		if( s.matches( "[0-9+\\-*/()\\.]" ) ) {
-			inputPane.doClick( s );
+			inputEntered( s );
 		}
 		else if( s.matches( "=" ) || event.getCode().equals( KeyCode.ENTER ) ) {
-			inputPane.doClick( "=" );
+			inputEntered( "=" );
 		}
 		else if( event.getCode().equals( KeyCode.BACK_SPACE ) ) {
-			inputPane.doClick( "Del" );
+			inputEntered( "Del" );
 		}
 		else if( s.equalsIgnoreCase( "c" ) ) {
-			inputPane.doClick( "C" );
+			inputEntered( "C" );
 		}
 	}
 }
