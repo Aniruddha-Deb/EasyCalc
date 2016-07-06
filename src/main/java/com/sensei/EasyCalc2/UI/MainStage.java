@@ -47,7 +47,7 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	}
 
 	private void setStageAttributes( Stage stage ) {
-		stage.setTitle( "EasyCalc" );
+		stage.setTitle( "EasyCalc 2" );
 		stage.setResizable( false );
 		stage.show();
 	}
