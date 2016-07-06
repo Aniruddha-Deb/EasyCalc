@@ -1,4 +1,4 @@
-package com.sensei.FXUI.UI;
+package com.sensei.EasyCalc2.UI;
 
 import java.util.ArrayList;
 

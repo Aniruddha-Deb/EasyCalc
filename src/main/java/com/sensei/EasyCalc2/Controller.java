@@ -1,11 +1,11 @@
-package com.sensei.FXUI;
+package com.sensei.EasyCalc2;
 
 import java.util.ArrayList;
 
 import com.sensei.EasyCalc.core.Evaluator;
 import com.sensei.EasyCalc.core.Lexer;
 import com.sensei.EasyCalc.core.Token;
-import com.sensei.FXUI.UI.MainStage;
+import com.sensei.EasyCalc2.UI.MainStage;
 
 public class Controller{
 

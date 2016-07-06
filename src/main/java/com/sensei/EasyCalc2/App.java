@@ -1,4 +1,4 @@
-package com.sensei.FXUI;
+package com.sensei.EasyCalc2;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

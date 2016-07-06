@@ -1,4 +1,4 @@
-package com.sensei.FXUI.UI;
+package com.sensei.EasyCalc2.UI;
 
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;

@@ -1,8 +1,6 @@
-package com.sensei.FXUI.UI;
+package com.sensei.EasyCalc2.UI;
 
-import static com.sensei.EasyCalc.Logger.log;
-
-import com.sensei.FXUI.Controller;
+import com.sensei.EasyCalc2.Controller;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -56,7 +54,7 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	
 	public void inputEntered( String inputEntered ) {
 		this.input = inputEntered;
-		log( "Input entered = " + inputEntered );
+		System.out.println( "Input entered = " + inputEntered );
 		controller.updateInput( input );
 	}
 	
