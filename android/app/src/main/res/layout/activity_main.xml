@@ -27,7 +27,7 @@
             android:textSize="40sp"
             android:textColor="@color/colorClear"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -36,7 +36,7 @@
             android:textColor="@color/colorDelete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -44,7 +44,7 @@
             android:textSize="40sp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -52,7 +52,7 @@
             android:textSize="40sp"
             android:textColor="@color/colorOperands"
             android:layout_width="0dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
@@ -67,7 +67,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -76,7 +76,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple"
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -85,7 +85,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple"
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -93,7 +93,8 @@
             android:textSize="40sp"
             android:textColor="@color/colorOperands"
             android:layout_width="0dp"
-            android:background="@color/colorPrimary"
+            android:clickable="true"
+            android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
@@ -108,7 +109,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -117,7 +118,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -126,7 +127,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -134,7 +135,7 @@
             android:textSize="40sp"
             android:textColor="@color/colorOperands"
             android:layout_width="0dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
@@ -149,7 +150,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -158,7 +159,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -167,7 +168,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -175,7 +176,7 @@
             android:textSize="40sp"
             android:textColor="@color/colorOperands"
             android:layout_width="0dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
@@ -190,7 +191,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -199,7 +200,7 @@
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -208,7 +209,7 @@
             android:textSize="40sp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -216,7 +217,7 @@
             android:textSize="40sp"
             android:textColor="@color/colorOperands"
             android:layout_width="0dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
