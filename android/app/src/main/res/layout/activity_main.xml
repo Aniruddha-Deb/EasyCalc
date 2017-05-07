@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textSize="50sp"
-        android:text="5+6*9"
+        android:id="@+id/exprView"
         android:padding="25sp"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimaryDark"/>
@@ -23,34 +23,38 @@
         <Button
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="0dp"
-            android:text="C"
+            android:text="@string/clear"
             android:textSize="40sp"
-            android:textColor="@color/colorClear"
+            android:textColor="@color/colorDelete"
+            android:onClick="onClearButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="DEL"
+            android:text="@string/delete"
             android:textSize="40sp"
             android:textColor="@color/colorDelete"
             android:layout_width="0dp"
+            android:onClick="onDeleteButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="="
-            android:textSize="40sp"
+            android:text="@string/equals"
+            android:textSize="50sp"
             android:layout_width="0dp"
+            android:onClick="onEqualsButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="+"
-            android:textSize="40sp"
+            android:text="@string/add"
+            android:textSize="50sp"
             android:textColor="@color/colorOperands"
+            android:onClick="onAddButtonClick"
             android:layout_width="0dp"
             android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
@@ -62,39 +66,42 @@
         style="?android:attr/buttonBarStyle">
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="7"
+            android:text="@string/seven"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
+            android:onClick="onSevenButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="8"
+            android:text="@string/eight"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
+            android:onClick="onEightButtonClick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="9"
+            android:text="@string/nine"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
+            android:onClick="onNineButtonClick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple"
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="–"
-            android:textSize="40sp"
+            android:text="@string/subtract"
+            android:textSize="50sp"
             android:textColor="@color/colorOperands"
+            android:onClick="onSubtractButtonClick"
             android:layout_width="0dp"
-            android:clickable="true"
-            android:background="@drawable/bg_ripple" 
+            android:background="@drawable/bg_ripple"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
@@ -104,76 +111,39 @@
         style="?android:attr/buttonBarStyle">
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="4"
+            android:text="@string/four"
+            android:textSize="40sp"
+            android:textColor="@color/colorNumpad"
+            android:onClick="onFourButtonClick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple" 
+            android:layout_weight="1"/>
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/five"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
+            android:onClick="onFiveButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="5"
+            android:text="@string/six"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
+            android:onClick="onSixButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="6"
-            android:textSize="40sp"
-            android:textColor="@color/colorNumpad"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple" 
-            android:layout_weight="1"/>
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="×"
-            android:textSize="40sp"
-            android:textColor="@color/colorOperands"
-            android:layout_width="0dp"
-            android:background="@drawable/bg_ripple" 
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </TableRow>
-
-    <TableRow
-        android:layout_weight="1"
-        style="?android:attr/buttonBarStyle">
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="1"
-            android:textSize="40sp"
-            android:textColor="@color/colorNumpad"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple" 
-            android:layout_weight="1"/>
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="2"
-            android:textSize="40sp"
-            android:textColor="@color/colorNumpad"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple" 
-            android:layout_weight="1"/>
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="3"
-            android:textSize="40sp"
-            android:textColor="@color/colorNumpad"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple" 
-            android:layout_weight="1"/>
-        <Button
-            style="?android:attr/buttonBarButtonStyle"
-            android:text="÷"
-            android:textSize="40sp"
+            android:text="@string/multiply"
+            android:textSize="50sp"
+            android:onClick="onMultiplyButtonClick"
             android:textColor="@color/colorOperands"
             android:layout_width="0dp"
             android:background="@drawable/bg_ripple" 
@@ -186,36 +156,85 @@
         style="?android:attr/buttonBarStyle">
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="."
+            android:text="@string/one"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
+            android:onClick="onOneButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="0"
+            android:text="@string/two"
             android:textSize="40sp"
             android:textColor="@color/colorNumpad"
             android:layout_width="0dp"
+            android:onClick="onTwoButtonClick"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="("
-            android:textColor="@color/colorOperands"
+            android:text="@string/three"
             android:textSize="40sp"
+            android:textColor="@color/colorNumpad"
+            android:layout_width="0dp"
+            android:onClick="onThreeButtonClick"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple" 
+            android:layout_weight="1"/>
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/divide"
+            android:textSize="50sp"
+            android:onClick="onDivideButtonClick"
+            android:textColor="@color/colorOperands"
+            android:layout_width="0dp"
+            android:background="@drawable/bg_ripple" 
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_weight="1"
+        style="?android:attr/buttonBarStyle">
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/decimal"
+            android:textSize="40sp"
+            android:textColor="@color/colorNumpad"
+            android:onClick="onDecimalButtonClick"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_ripple" 
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text=")"
+            android:text="@string/zero"
             android:textSize="40sp"
+            android:textColor="@color/colorNumpad"
+            android:onClick="onZeroButtonClick"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple" 
+            android:layout_weight="1"/>
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/lbracket"
             android:textColor="@color/colorOperands"
+            android:textSize="50sp"
+            android:layout_width="0dp"
+            android:onClick="onLeftBracketButtonClick"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_ripple" 
+            android:layout_weight="1"/>
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/rbracket"
+            android:textSize="50sp"
+            android:textColor="@color/colorOperands"
+            android:onClick="onRightBracketButtonClick"
             android:layout_width="0dp"
             android:background="@drawable/bg_ripple" 
             android:layout_height="match_parent"
