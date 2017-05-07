@@ -61,7 +61,7 @@ public class OutputPane extends GridPane {
 		output.setText( "" );
 		
 		if( !showsError() ) {
-			output.setStyle( "-fx-background-color: " + defaultBGColor + ";" );
+			output.setStyle( "-fx-background-color: #" + defaultBGColor.toString().substring( 2 ) + ";" );
 		}
 		
 		for( Token token : tokens ) {

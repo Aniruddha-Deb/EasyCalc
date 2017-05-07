@@ -14,7 +14,6 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	
 	private InputPane  inputPane  = null;
 	private OutputPane outputPane = null;
-	private String     input      = null;
 	private Controller controller = null;
 
 	public MainStage( Controller controller ) {
@@ -29,7 +28,6 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	}
 
 	private void createComponents() {
-		input = new String();
 		inputPane = new InputPane( this );
 		outputPane = new OutputPane( this );
 	}
@@ -53,7 +51,7 @@ public class MainStage extends Application implements EventHandler<KeyEvent>{
 	}
 	
 	public void inputEntered( String inputEntered ) {
-		this.input = inputEntered;
+		String input = inputEntered;
 		System.out.println( "Input entered = " + inputEntered );
 		controller.updateInput( input );
 	}

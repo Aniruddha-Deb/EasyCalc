@@ -1,12 +1,11 @@
 package com.sensei.EasyCalc.core;
 
+import java.math.BigDecimal;
+
 public class Evaluator {
 	
-	public Evaluator() {
-	}
-	
-	public double evaluate( Lexer lexer ) throws Exception{
-		double value = 0;
+	public BigDecimal evaluate( Lexer lexer ) throws Exception{
+		BigDecimal value = new BigDecimal( "0" );
 		value = calculateASOp( lexer );
 		Token token = lexer.getNextToken();
 		
@@ -15,12 +14,12 @@ public class Evaluator {
 			if( token.getTokenValue().equals("+") ||
 			    token.getTokenValue().equals("-") ) {
 				
-				double rightHandValue = calculateASOp( lexer );
+				BigDecimal rightHandValue = calculateASOp( lexer );
 				if( token.getTokenValue().equals( "+" ) ) {
-					value += rightHandValue;
+					value = value.add( rightHandValue );
 				}
 				else if( token.getTokenValue().equals( "-" ) ) {
-					value -= rightHandValue;
+					value = value.subtract( rightHandValue );
 				}
 				token = lexer.getNextToken() ;
 			}
@@ -32,8 +31,8 @@ public class Evaluator {
 		return value;
 	}
 	
-	private double calculateASOp( Lexer lexer ) throws Exception{
-		double value = 0;
+	private BigDecimal calculateASOp( Lexer lexer ) throws Exception{
+		BigDecimal value = new BigDecimal( "0" );
 		value = calculateMDOp( lexer );
 		Token token = lexer.getNextToken();
 		
@@ -42,12 +41,12 @@ public class Evaluator {
 			if( token.getTokenValue().equals("*") ||
 			    token.getTokenValue().equals("/") ) {
 				
-				double rightHandValue = calculateMDOp( lexer );
+				BigDecimal rightHandValue = calculateMDOp( lexer );
 				if( token.getTokenValue().equals( "*" ) ) {
-					value *= rightHandValue;
+					value = value.multiply( rightHandValue );
 				}
 				else if( token.getTokenValue().equals( "/" ) ) {
-					value /= rightHandValue;
+					value = value.divide( rightHandValue );
 				}
 				token = lexer.getNextToken() ;
 			}
@@ -59,8 +58,8 @@ public class Evaluator {
 		return value;
 	}
 	
-	private double calculateMDOp( Lexer lexer ) throws Exception{
-		double value = 0;
+	private BigDecimal calculateMDOp( Lexer lexer ) throws Exception{
+		BigDecimal value = new BigDecimal( "0" );
 		Token token = lexer.getNextToken();
 		int    sign = 1 ;
 		
@@ -84,7 +83,7 @@ public class Evaluator {
 		}
 
 		if( token.getTokenType() == Token.NUMERIC ) {
-			value = Double.parseDouble( token.getTokenValue() );
+			value = new BigDecimal( token.getTokenValue() );
 		}
 		else if( token.getTokenType() == Token.PARENTHESES ) {
 			
@@ -103,6 +102,6 @@ public class Evaluator {
 			throw new Exception( "Invalid expression." ) ;
 		}
 		
-		return value*sign ;
+		return value.multiply( BigDecimal.valueOf( sign ) );
 	}
 }

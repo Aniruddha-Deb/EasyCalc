@@ -1,5 +1,6 @@
 package com.sensei.EasyCalc2;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.sensei.EasyCalc.core.Evaluator;
@@ -81,13 +82,13 @@ public class Controller{
 	}
 
 	private void calculateAndShowAnswer() {
-		Double answer;
+		BigDecimal answer;
 		
 		lexer.reset( expression.toString() );
 		try {
 			answer = evaluator.evaluate( lexer );
 			expression.delete( 0, expression.length() );
-			expression.append( answer.toString() );
+			expression.append( answer.toPlainString() );
 			refreshOutput( false );
 		} 
 		catch ( Exception e ) {
