@@ -2,6 +2,7 @@ package com.sensei.easycalc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case '.':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.decimal ) ) );
+                t.setTokenValue( t.getTokenValue().replaceFirst( "\\.", getString( R.string.decimal ) ) );
                 break;
         }
     }
