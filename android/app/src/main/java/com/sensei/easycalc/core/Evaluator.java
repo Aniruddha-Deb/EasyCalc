@@ -80,19 +80,19 @@ public class Evaluator {
     private BigDecimal calculateMDOp( Lexer lexer ) throws Exception{
         BigDecimal value = new BigDecimal( "0" );
         Token token = lexer.getNextToken();
-        int    sign = 1 ;
+        int   sign = 1 ;
 
         if( token == null ) {
             throw new Exception( "Incomplete expression" ) ;
         }
 
         if( token.getTokenValue().equals( subtract ) ) {
-            // We have an unary negation operator.
+            // We have a unary negation operator.
             sign = -1 ;
             token = lexer.getNextToken() ;
         }
         else if( token.getTokenValue().equals( add ) ) {
-            // We have an unary positive operator.
+            // We have a unary positive operator.
             sign = 1 ;
             token = lexer.getNextToken() ;
         }

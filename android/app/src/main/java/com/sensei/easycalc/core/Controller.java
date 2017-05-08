@@ -1,6 +1,6 @@
 package com.sensei.easycalc.core;
 
-import android.util.Log;
+import android.widget.Toast;
 
 import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
@@ -68,19 +68,7 @@ public class Controller {
         lexer.reset( expression.toString() );
         ArrayList<Token> tokens = lexer.getAllTokens() ;
 
-        try {
-            if( !tokens.isEmpty() ) {
-                Token lastToken = tokens.get( tokens.size()-1 );
-
-                if( lastToken.getTokenType() == Token.NUMERIC ) {
-                    new BigDecimal( lastToken.getTokenValue() ) ;
-                }
-            }
-            activity.refreshOutput( tokens, showSeparator );
-        }
-        catch ( Exception e ) {
-            processCommand( "Del" ) ;
-        }
+        activity.refreshOutput( tokens, showSeparator );
     }
 
     private void calculateAndShowAnswer() {
@@ -90,17 +78,26 @@ public class Controller {
         try {
             answer = evaluator.evaluate( lexer );
             expression.delete( 0, expression.length() );
-            expression.append( answer.toPlainString() );
-            refreshOutput( false );
+            showAnswer( answer, true );
         }
         catch ( Exception e ) {
             activity.showError();
+            Toast.makeText( activity, e.getMessage(), Toast.LENGTH_SHORT ).show();
         }
+    }
+
+    private void showAnswer( BigDecimal answer, boolean showSeparator ) {
+        lexer.reset( answer.toPlainString() );
+        ArrayList<Token> tokens = lexer.getAllTokens() ;
+
+        for( Token t : tokens ) {
+            expression.append( t.getTokenValue() );
+        }
+        activity.refreshOutput( tokens, showSeparator );
     }
 
     public void updateInput( String inputEntered ) {
         if( isCommandInput( inputEntered ) ) {
-            Log.d( "Controller", "Input is a Command" );
             processCommand( inputEntered ) ;
         }
         else {
@@ -108,5 +105,4 @@ public class Controller {
             refreshOutput( true );
         }
     }
-
 }

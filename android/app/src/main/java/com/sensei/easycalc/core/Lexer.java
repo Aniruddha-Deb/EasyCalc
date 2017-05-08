@@ -44,6 +44,7 @@ public class Lexer {
     public void reset( String input ) {
         this.input = input;
         currentPos = 0;
+        pushedBackTokens = new Stack<>();
     }
 
     public Token getNextToken() {
@@ -56,6 +57,9 @@ public class Lexer {
             char ch = input.charAt( currentPos );
             if( isOperator( ch ) ) {
                 currentPos++ ;
+                if( ch == '-' ) {
+                    return new Token( Token.OPERATOR, subtract );
+                }
                 return new Token( Token.OPERATOR, ch );
             }
             else if( isParenthesis( ch ) ) {
@@ -69,8 +73,9 @@ public class Lexer {
                         token = new Token( Token.NUMERIC, ch );
                     }
                     else {
-                        token.append( ch ) ;
+                        token.append( ch );
                     }
+
                     currentPos++ ;
                     if( currentPos >= input.length() ) {
                         break ;
@@ -94,7 +99,7 @@ public class Lexer {
     }
 
     private boolean isOperator( char ch ) {
-        return ch == add || ch == subtract || ch == multiply || ch == divide;
+        return ch == add || ch == subtract || ch == multiply || ch == divide || ch == '-';
     }
 
     private boolean isPartOfNumToken( char ch ) {
