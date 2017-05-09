@@ -12,4 +12,7 @@
     <string name="eight">८</string>
     <string name="nine">९</string>
     <string name="zero">०</string>
+
+    <string name="history">इतिहास</string>
+    <string name="memory">याद</string>
 </resources>

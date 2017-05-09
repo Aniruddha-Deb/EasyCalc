@@ -12,9 +12,50 @@
         android:layout_weight="1"
         android:textSize="50sp"
         android:id="@+id/exprView"
-        android:padding="25sp"
+        android:paddingStart="25sp"
+        android:paddingEnd="25sp"
+        android:paddingBottom="0sp"
+        android:paddingTop="20sp"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimaryDark"/>
+    </TableRow>
+
+    <TableRow
+        android:background="@color/colorPrimaryDark"
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:background="@color/colorPrimaryDark"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="@string/history"
+            android:padding="20sp"
+            android:textSize="20sp"/>
+
+        <Button
+            android:background="@color/colorPrimaryDark"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:text="@string/memory"
+            android:textSize="20sp"
+            android:padding="20sp"/>
+
+        <Space
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textAlignment="viewEnd"
+            android:id="@+id/answerView"
+            android:padding="20sp"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="20sp"/>
+
     </TableRow>
 
     <TableRow

@@ -10,6 +10,9 @@
     <string name="lbracket">(</string>
     <string name="rbracket">)</string>
 
+    <string name="history">history</string>
+    <string name="memory">memory</string>
+
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
