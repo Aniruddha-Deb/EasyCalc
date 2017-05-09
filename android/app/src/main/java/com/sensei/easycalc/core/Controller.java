@@ -1,7 +1,5 @@
 package com.sensei.easycalc.core;
 
-import android.widget.Toast;
-
 import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
 
@@ -12,6 +10,7 @@ public class Controller {
 
     private StringBuilder expression = null;
     private Lexer         lexer      = null;
+    private String        answer     = null;
     private Evaluator     evaluator  = null;
     private MainActivity  activity   = null;
 
@@ -60,15 +59,21 @@ public class Controller {
             }
         }
         else if( cmd.equals( CMD_EQUALS ) ) {
-            calculateAndShowAnswer();
+            outputAnswerOnExpressionView();
         }
+    }
+
+    private void outputAnswerOnExpressionView() {
+        expression = new StringBuilder( answer );
+        refreshOutput( true );
     }
 
     private void refreshOutput( boolean showSeparator ) {
         lexer.reset( expression.toString() );
         ArrayList<Token> tokens = lexer.getAllTokens() ;
-
         activity.refreshOutput( tokens, showSeparator );
+
+        calculateAndShowAnswer();
     }
 
     private void calculateAndShowAnswer() {
@@ -77,23 +82,31 @@ public class Controller {
         lexer.reset( expression.toString() );
         try {
             answer = evaluator.evaluate( lexer );
-            expression.delete( 0, expression.length() );
-            showAnswer( answer, true );
+            // complex logic
+            if( !( convertToString( answer ).equals( expression.toString().replace( " ", "" ) ) ) ) {
+                showAnswer( answer );
+            }
         }
         catch ( Exception e ) {
-            activity.showError();
-            Toast.makeText( activity, e.getMessage(), Toast.LENGTH_SHORT ).show();
+            // do nothing!
         }
     }
 
-    private void showAnswer( BigDecimal answer, boolean showSeparator ) {
-        lexer.reset( answer.toPlainString() );
-        ArrayList<Token> tokens = lexer.getAllTokens() ;
+    private void showAnswer( BigDecimal answer ) {
+        this.answer = convertToString( answer );
+        activity.showAnswer( this.answer );
+    }
 
-        for( Token t : tokens ) {
-            expression.append( t.getTokenValue() );
+    private String convertToString( BigDecimal d ) {
+        StringBuilder b = new StringBuilder( d.toPlainString() );
+
+        for( int i=0; i<b.length(); i++ ) {
+            if( b.charAt( i ) == '-' ) {
+                b.replace( i, i+1, "–" );
+            }
         }
-        activity.refreshOutput( tokens, showSeparator );
+
+        return b.toString();
     }
 
     public void updateInput( String inputEntered ) {

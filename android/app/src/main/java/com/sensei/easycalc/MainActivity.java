@@ -2,7 +2,6 @@ package com.sensei.easycalc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private TextView expressionView = null;
+    private TextView answerView = null;
     private Controller controller = null;
 
     @Override
@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         expressionView = (TextView)findViewById( R.id.exprView );
+        answerView = (TextView)findViewById( R.id.answerView );
         controller = new Controller( this );
     }
 
     public void refreshOutput( ArrayList<Token> tokens, boolean showSeparator ) {
         expressionView.setText( "" );
+        answerView.setText( "" );
 
         if( showsError() ) {
             expressionView.setBackgroundColor( getResources().getColor( R.color.colorPrimaryDark ) );
@@ -35,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         for( Token token : tokens ) {
             outputToken( token, showSeparator );
         }
+    }
+
+    public void showAnswer( String answer ) {
+        answerView.setText( answer );
     }
 
     private void outputToken( Token token, boolean showSeparator ) {
