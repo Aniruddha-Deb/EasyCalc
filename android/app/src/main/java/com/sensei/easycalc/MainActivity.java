@@ -14,6 +14,8 @@ import com.sensei.easycalc.core.Token;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import me.grantland.widget.AutofitHelper;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView expressionView = null;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         expressionView = (TextView)findViewById( R.id.exprView );
+        AutofitHelper.create( expressionView );
         answerView = (TextView)findViewById( R.id.answerView );
         memoryView = (TextView)findViewById( R.id.memoryView );
         controller = new Controller( this );

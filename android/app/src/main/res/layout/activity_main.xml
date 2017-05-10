@@ -13,6 +13,7 @@
         android:textSize="50sp"
         android:id="@+id/exprView"
         android:paddingStart="25sp"
+        android:maxLines="1"
         android:paddingEnd="2sp"
         android:paddingBottom="10sp"
         android:paddingTop="20sp"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:text="@string/memory"
+            android:layout_gravity="left"
             android:onClick="onMemoryButtonClick"
             android:textSize="20sp"
             android:padding="10sp"/>
@@ -54,6 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textAlignment="viewEnd"
+            android:layout_gravity="bottom"
             android:id="@+id/answerView"
             android:paddingEnd="17sp"
             android:paddingStart="10sp"
