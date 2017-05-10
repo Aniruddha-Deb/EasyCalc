@@ -10,7 +10,7 @@ public class Controller {
 
     private StringBuilder expression = null;
     private Lexer         lexer      = null;
-    private String        answer     = null;
+    private BigDecimal    answer     = null;
     private Evaluator     evaluator  = null;
     private MainActivity  activity   = null;
 
@@ -64,7 +64,7 @@ public class Controller {
     }
 
     private void outputAnswerOnExpressionView() {
-        expression = new StringBuilder( answer );
+        expression = new StringBuilder( convertToString( answer ) );
         refreshOutput( true );
     }
 
@@ -77,8 +77,6 @@ public class Controller {
     }
 
     private void calculateAndShowAnswer() {
-        BigDecimal answer;
-
         lexer.reset( expression.toString() );
         try {
             answer = evaluator.evaluate( lexer );
@@ -93,11 +91,11 @@ public class Controller {
     }
 
     private void showAnswer( BigDecimal answer ) {
-        this.answer = convertToString( answer );
-        activity.showAnswer( this.answer );
+        String s = convertToString( answer );
+        activity.showAnswer( s );
     }
 
-    private String convertToString( BigDecimal d ) {
+    public String convertToString( BigDecimal d ) {
         StringBuilder b = new StringBuilder( d.toPlainString() );
 
         for( int i=0; i<b.length(); i++ ) {
@@ -117,5 +115,9 @@ public class Controller {
             expression.append( inputEntered ) ;
             refreshOutput( true );
         }
+    }
+
+    public BigDecimal getAnswer() {
+        return answer;
     }
 }

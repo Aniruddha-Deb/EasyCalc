@@ -2,6 +2,8 @@ package com.sensei.easycalc;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -9,13 +11,17 @@ import android.widget.TextView;
 import com.sensei.easycalc.core.Controller;
 import com.sensei.easycalc.core.Token;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView expressionView = null;
     private TextView answerView = null;
+    private TextView memoryView = null;
     private Controller controller = null;
+
+    private BigDecimal memory = null;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -23,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView( R.layout.activity_main );
         expressionView = (TextView)findViewById( R.id.exprView );
         answerView = (TextView)findViewById( R.id.answerView );
+        memoryView = (TextView)findViewById( R.id.memoryView );
         controller = new Controller( this );
+
+        memory = new BigDecimal( "0" );
     }
 
     public void refreshOutput( ArrayList<Token> tokens, boolean showSeparator ) {
@@ -159,5 +168,64 @@ public class MainActivity extends AppCompatActivity {
 
     public void onZeroButtonClick( View view ) {
         controller.updateInput( "0" );
+    }
+
+    public void onMemoryButtonClick( View view ) {
+        PopupMenu memoryMenu = new PopupMenu( this, view );
+        memoryMenu.inflate( R.menu.memory_menu );
+        memoryMenu.setOnMenuItemClickListener( new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick( MenuItem item ) {
+                switch( item.getItemId() ) {
+                    case R.id.mem_plus:
+                        onMemPlusButtonClick();
+                        return true;
+
+                    case R.id.mem_minus:
+                        onMemMinusButtonClick();
+                        return true;
+
+                    case R.id.mem_clear:
+                        onMemClearButtonClick();
+                        return true;
+
+                    case R.id.mem_recall:
+                        onMemRecallButtonClick();
+                        return true;
+                }
+                return false;
+            }
+        } );
+        memoryMenu.show();
+    }
+
+    private void onMemPlusButtonClick() {
+        memory = memory.add( controller.getAnswer() );
+        refreshMemoryView();
+    }
+
+    private void onMemMinusButtonClick() {
+        memory = memory.subtract( controller.getAnswer() );
+        refreshMemoryView();
+    }
+
+    private void onMemClearButtonClick() {
+        memory = new BigDecimal( 0 );
+        refreshMemoryView();
+    }
+
+    private void onMemRecallButtonClick() {
+        controller.updateInput( "C" );
+        controller.updateInput( controller.convertToString( memory ) );
+        refreshMemoryView();
+    }
+
+    private void refreshMemoryView() {
+        if( !( memory.toPlainString().equals( "0" ) ) ) {
+            memoryView.setText( "MEM = " + controller.convertToString( memory ) );
+        }
+        else {
+            memoryView.setText( "" );
+        }
     }
 }

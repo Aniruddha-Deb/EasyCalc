@@ -13,11 +13,23 @@
         android:textSize="50sp"
         android:id="@+id/exprView"
         android:paddingStart="25sp"
-        android:paddingEnd="25sp"
-        android:paddingBottom="0sp"
+        android:paddingEnd="2sp"
+        android:paddingBottom="10sp"
         android:paddingTop="20sp"
         android:textColor="@android:color/white"
+        android:textAlignment="viewEnd"
         android:background="@color/colorPrimaryDark"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@android:color/darker_gray"
+            android:id="@+id/memoryView"
+            android:textSize="15sp"
+            android:paddingStart="10sp"
+            android:paddingEnd="10sp"/>
     </TableRow>
 
     <TableRow
@@ -30,19 +42,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
-            android:text="@string/history"
-            android:padding="20sp"
-            android:textSize="20sp"/>
-
-        <Button
-            android:background="@color/colorPrimaryDark"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
             android:text="@string/memory"
+            android:onClick="onMemoryButtonClick"
             android:textSize="20sp"
-            android:padding="20sp"/>
+            android:padding="10sp"/>
 
         <Space
             android:layout_weight="1"/>
@@ -52,7 +55,10 @@
             android:layout_width="wrap_content"
             android:textAlignment="viewEnd"
             android:id="@+id/answerView"
-            android:padding="20sp"
+            android:paddingEnd="17sp"
+            android:paddingStart="10sp"
+            android:paddingTop="10sp"
+            android:paddingBottom="10sp"
             android:textColor="@android:color/darker_gray"
             android:textSize="20sp"/>
 
@@ -83,23 +89,25 @@
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/equals"
+            android:text="@string/lbracket"
+            android:textColor="@color/colorOperands"
             android:textSize="50sp"
             android:layout_width="0dp"
             android:onClick="onNonNumpadButtonClick"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple" 
+            android:background="@drawable/bg_ripple"
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/add"
+            android:text="@string/rbracket"
             android:textSize="50sp"
             android:textColor="@color/colorOperands"
             android:onClick="onNonNumpadButtonClick"
             android:layout_width="0dp"
-            android:background="@drawable/bg_ripple" 
+            android:background="@drawable/bg_ripple"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
+
     </TableRow>
 
     <TableRow
@@ -262,22 +270,21 @@
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/lbracket"
-            android:textColor="@color/colorOperands"
+            android:text="@string/equals"
             android:textSize="50sp"
             android:layout_width="0dp"
             android:onClick="onNonNumpadButtonClick"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_ripple" 
+            android:background="@drawable/bg_ripple"
             android:layout_weight="1"/>
         <Button
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/rbracket"
+            android:text="@string/add"
             android:textSize="50sp"
             android:textColor="@color/colorOperands"
             android:onClick="onNonNumpadButtonClick"
             android:layout_width="0dp"
-            android:background="@drawable/bg_ripple" 
+            android:background="@drawable/bg_ripple"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
     </TableRow>
