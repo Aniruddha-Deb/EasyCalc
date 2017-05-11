@@ -1,12 +1,17 @@
 package com.sensei.easycalc;
 
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.sensei.easycalc.core.Controller;
 import com.sensei.easycalc.core.Token;
@@ -16,7 +21,9 @@ import java.util.ArrayList;
 
 import me.grantland.widget.AutofitHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener{
+
+    private GestureDetectorCompat gestureDetector = null;
 
     private TextView expressionView = null;
     private TextView answerView = null;
@@ -25,13 +32,20 @@ public class MainActivity extends AppCompatActivity {
 
     private BigDecimal memory = null;
 
+    private float swipeX1, swipeX2;
+    private int distance = 150;
+
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+
+        gestureDetector = new GestureDetectorCompat( this, this );
+
         expressionView = (TextView)findViewById( R.id.exprView );
         AutofitHelper.create( expressionView );
         answerView = (TextView)findViewById( R.id.answerView );
+        AutofitHelper.create( answerView );
         memoryView = (TextView)findViewById( R.id.memoryView );
         controller = new Controller( this );
 
@@ -41,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public void refreshOutput( ArrayList<Token> tokens, boolean showSeparator ) {
         expressionView.setText( "" );
         answerView.setText( "" );
-
-        if( showsError() ) {
-            expressionView.setBackgroundColor( getResources().getColor( R.color.colorPrimaryDark ) );
-        }
 
         for( Token token : tokens ) {
             outputToken( token, showSeparator );
@@ -115,14 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 t.setTokenValue( t.getTokenValue().replaceFirst( "\\.", getString( R.string.decimal ) ) );
                 break;
         }
-    }
-
-    public void showError() {
-        expressionView.setBackground( getResources().getDrawable( R.color.colorError ) );
-    }
-
-    private boolean showsError() {
-        return !( expressionView.getBackground().equals( getResources().getDrawable( R.color.colorPrimaryDark ) ) );
     }
 
     public void onNonNumpadButtonClick( View view ) {
@@ -230,5 +232,50 @@ public class MainActivity extends AppCompatActivity {
         else {
             memoryView.setText( "" );
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.gestureDetector.onTouchEvent( event );
+        return super.onTouchEvent( event );
+    }
+
+    @Override
+    public boolean onDown(MotionEvent motionEvent) {
+        Log.d( "MainActivity", "Got an on down event" );
+        return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent motionEvent) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent motionEvent) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+        Log.d( "MainActivity", "LEFT or RIGHT swipe detected" );
+        ViewFlipper vf = (ViewFlipper)findViewById( R.id.vf );
+        if( v <= v1 ) {
+            vf.setDisplayedChild( vf.getDisplayedChild()+1 );
+        }
+        else {
+            vf.setDisplayedChild( vf.getDisplayedChild()-1 );
+        }
+        return true;
     }
 }
