@@ -1,7 +1,6 @@
 package com.sensei.easycalc;
 
 import android.os.Bundle;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -12,7 +11,8 @@ import android.widget.TextView;
 
 import com.sensei.easycalc.core.Controller;
 import com.sensei.easycalc.core.Token;
-import com.sensei.easycalc.ui.adapter.BottomViewPagerAdapter;
+import com.sensei.easycalc.dao.DatabaseHelper;
+import com.sensei.easycalc.ui.viewpager.BottomViewPagerAdapter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,20 +29,20 @@ public class MainActivity extends AppCompatActivity{
     private BigDecimal memory = null;
 
     private ViewPager pager = null;
-    private PagerAdapter adapter = null;
-
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+        DatabaseHelper.createInstance( this );
         initializeComponents();
         setUpViewPager();
     }
 
     private void setUpViewPager() {
         pager = (ViewPager)findViewById( R.id.viewPager );
-        adapter = new BottomViewPagerAdapter( getSupportFragmentManager() );
+        BottomViewPagerAdapter adapter = new BottomViewPagerAdapter( getSupportFragmentManager() );
         pager.setAdapter( adapter );
+        pager.addOnPageChangeListener( adapter );
         pager.setCurrentItem( 1 );
     }
 

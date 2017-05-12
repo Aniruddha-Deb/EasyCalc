@@ -2,6 +2,7 @@ package com.sensei.easycalc.core;
 
 import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
+import com.sensei.easycalc.dao.DatabaseHelper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -59,8 +60,14 @@ public class Controller {
             }
         }
         else if( cmd.equals( CMD_EQUALS ) ) {
+            updateHistory();
             outputAnswerOnExpressionView();
         }
+    }
+
+    private void updateHistory() {
+        DatabaseHelper.getInstance().addTransactionToDatabase( expression.toString(),
+                                                                         convertToString( answer ) );
     }
 
     private void outputAnswerOnExpressionView() {
