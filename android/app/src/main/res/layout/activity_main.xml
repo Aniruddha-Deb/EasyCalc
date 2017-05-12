@@ -58,6 +58,7 @@
             android:layout_weight="1"
             android:layout_gravity="end|bottom"
             android:id="@+id/answerView"
+            android:maxLines="1"
             android:paddingEnd="17sp"
             android:paddingStart="10sp"
             android:paddingTop="10sp"
@@ -67,15 +68,13 @@
 
     </TableRow>
 
-    <com.sensei.easycalc.ui.BottomViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:id="@+id/vf"
-                 android:layout_width="fill_parent"
-                 android:layout_height="fill_parent" >
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <include android:id="@+id/include1" layout="@layout/numpad_layout" />
-        <include android:id="@+id/map" layout="@layout/history_layout" />
 
-    </com.sensei.easycalc.ui.BottomViewFlipper>
+    </android.support.v4.view.ViewPager>
 
 </TableLayout>
 

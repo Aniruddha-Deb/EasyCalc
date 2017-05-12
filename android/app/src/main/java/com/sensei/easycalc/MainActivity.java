@@ -1,29 +1,25 @@
 package com.sensei.easycalc;
 
 import android.os.Bundle;
-import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.sensei.easycalc.core.Controller;
 import com.sensei.easycalc.core.Token;
+import com.sensei.easycalc.ui.adapter.BottomViewPagerAdapter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import me.grantland.widget.AutofitHelper;
 
-public class MainActivity extends AppCompatActivity implements GestureDetector.OnGestureListener{
-
-    private GestureDetectorCompat gestureDetector = null;
+public class MainActivity extends AppCompatActivity{
 
     private TextView expressionView = null;
     private TextView answerView = null;
@@ -32,16 +28,24 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
 
     private BigDecimal memory = null;
 
-    private float swipeX1, swipeX2;
-    private int distance = 150;
+    private ViewPager pager = null;
+    private PagerAdapter adapter = null;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+        initializeComponents();
+        setUpViewPager();
+    }
 
-        gestureDetector = new GestureDetectorCompat( this, this );
+    private void setUpViewPager() {
+        pager = (ViewPager)findViewById( R.id.viewPager );
+        adapter = new BottomViewPagerAdapter( getSupportFragmentManager() );
+        pager.setAdapter( adapter );
+    }
 
+    private void initializeComponents() {
         expressionView = (TextView)findViewById( R.id.exprView );
         AutofitHelper.create( expressionView );
         answerView = (TextView)findViewById( R.id.answerView );
@@ -52,7 +56,18 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
         memory = new BigDecimal( "0" );
     }
 
-    public void refreshOutput( ArrayList<Token> tokens, boolean showSeparator ) {
+    @Override
+    public void onBackPressed() {
+        if( pager.getCurrentItem() == 0 ) {
+            super.onBackPressed();
+        }
+        else {
+            pager.setCurrentItem( pager.getCurrentItem()-1 );
+        }
+        super.onBackPressed();
+    }
+
+    public void refreshOutput(ArrayList<Token> tokens, boolean showSeparator ) {
         expressionView.setText( "" );
         answerView.setText( "" );
 
@@ -226,56 +241,10 @@ public class MainActivity extends AppCompatActivity implements GestureDetector.O
     }
 
     private void refreshMemoryView() {
-        if( !( memory.toPlainString().equals( "0" ) ) ) {
+        if( !(memory.toPlainString().equals( "0" )) ) {
             memoryView.setText( "MEM = " + controller.convertToString( memory ) );
-        }
-        else {
+        } else {
             memoryView.setText( "" );
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gestureDetector.onTouchEvent( event );
-        return super.onTouchEvent( event );
-    }
-
-    @Override
-    public boolean onDown(MotionEvent motionEvent) {
-        Log.d( "MainActivity", "Got an on down event" );
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent motionEvent) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent motionEvent) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent motionEvent) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-        Log.d( "MainActivity", "LEFT or RIGHT swipe detected" );
-        ViewFlipper vf = (ViewFlipper)findViewById( R.id.vf );
-        if( v <= v1 ) {
-            vf.setDisplayedChild( vf.getDisplayedChild()+1 );
-        }
-        else {
-            vf.setDisplayedChild( vf.getDisplayedChild()-1 );
-        }
-        return true;
     }
 }
