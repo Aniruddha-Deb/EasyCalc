@@ -19,10 +19,10 @@ public class BottomViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem( int position ) {
         switch( position ) {
             case 0:
-                return new NumpadFragment();
+                return new HistoryFragment();
 
             case 1:
-                return new HistoryFragment();
+                return new NumpadFragment();
         }
         return null;
     }

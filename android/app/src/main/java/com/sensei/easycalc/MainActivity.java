@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity{
         pager = (ViewPager)findViewById( R.id.viewPager );
         adapter = new BottomViewPagerAdapter( getSupportFragmentManager() );
         pager.setAdapter( adapter );
+        pager.setCurrentItem( 1 );
     }
 
     private void initializeComponents() {
@@ -58,13 +59,12 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        if( pager.getCurrentItem() == 0 ) {
+        if( pager.getCurrentItem() == 1 ) {
             super.onBackPressed();
         }
         else {
-            pager.setCurrentItem( pager.getCurrentItem()-1 );
+            pager.setCurrentItem( 1 );
         }
-        super.onBackPressed();
     }
 
     public void refreshOutput(ArrayList<Token> tokens, boolean showSeparator ) {
