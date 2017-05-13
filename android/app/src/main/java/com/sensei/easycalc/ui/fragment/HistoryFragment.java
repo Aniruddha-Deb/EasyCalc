@@ -7,16 +7,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import com.sensei.easycalc.R;
 import com.sensei.easycalc.dao.DatabaseHelper;
+import com.sensei.easycalc.ui.adapter.HistoryCursorAdapter;
 
 public class HistoryFragment extends Fragment {
 
-    private CursorAdapter cursorAdapter = null;
+    private HistoryCursorAdapter cursorAdapter = null;
 
     private static final String TAG = "HistoryFragment";
 
@@ -29,13 +28,9 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onViewCreated( View view, @Nullable Bundle savedInstanceState ) {
         ListView historyView = (ListView)view.findViewById( R.id.historyList );
-        cursorAdapter = new SimpleCursorAdapter(
+        cursorAdapter = new HistoryCursorAdapter(
                             getActivity(),
-                            android.R.layout.simple_list_item_1,
-                            DatabaseHelper.getInstance().getHistoryCursor(),
-                            new String[]{ "expression" },
-                            new int[]{ android.R.id.text1 },
-                            0 );
+                            DatabaseHelper.getInstance().getHistoryCursor() );
         historyView.setAdapter( cursorAdapter );
         super.onViewCreated( view, savedInstanceState );
     }

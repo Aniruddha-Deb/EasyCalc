@@ -10,12 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.sensei.easycalc.core.Controller;
-import com.sensei.easycalc.core.Token;
 import com.sensei.easycalc.dao.DatabaseHelper;
-import com.sensei.easycalc.ui.viewpager.BottomViewPagerAdapter;
+import com.sensei.easycalc.ui.adapter.BottomViewPagerAdapter;
+import com.sensei.easycalc.util.LocaleUtil;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import me.grantland.widget.AutofitHelper;
 
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity{
     private BigDecimal memory = null;
 
     private ViewPager pager = null;
+
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
         super.onCreate( savedInstanceState );
@@ -67,79 +67,14 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void refreshOutput(ArrayList<Token> tokens, boolean showSeparator ) {
+    public void refreshOutput( String str ) {
         expressionView.setText( "" );
+        expressionView.setText( str );
         answerView.setText( "" );
-
-        for( Token token : tokens ) {
-            outputToken( token, showSeparator );
-        }
     }
 
     public void showAnswer( String answer ) {
         answerView.setText( answer );
-    }
-
-    private void outputToken( Token token, boolean showSeparator ) {
-        String separator = "" ;
-        if( showSeparator ) {
-            separator = " " ;
-        }
-
-        if( token.getTokenType() == Token.NUMERIC ) {
-            for( char c : token.getTokenValue().toCharArray() ) {
-                replaceWithLocaleDigits( c, token );
-            }
-        }
-        expressionView.setText( expressionView.getText() + token.getTokenValue() + separator );
-    }
-
-    private void replaceWithLocaleDigits( char c, Token t ) {
-        switch( c ) {
-            case '1':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.one ) ) );
-                break;
-
-            case '2':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.two ) ) );
-                break;
-
-            case '3':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.three ) ) );
-                break;
-
-            case '4':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.four ) ) );
-                break;
-
-            case '5':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.five ) ) );
-                break;
-
-            case '6':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.six ) ) );
-                break;
-
-            case '7':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.seven ) ) );
-                break;
-
-            case '8':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.eight ) ) );
-                break;
-
-            case '9':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.nine ) ) );
-                break;
-
-            case '0':
-                t.setTokenValue( t.getTokenValue().replaceFirst( c+"", getString( R.string.zero ) ) );
-                break;
-
-            case '.':
-                t.setTokenValue( t.getTokenValue().replaceFirst( "\\.", getString( R.string.decimal ) ) );
-                break;
-        }
     }
 
     public void onNonNumpadButtonClick( View view ) {
@@ -236,13 +171,13 @@ public class MainActivity extends AppCompatActivity{
 
     private void onMemRecallButtonClick() {
         controller.updateInput( "C" );
-        controller.updateInput( controller.convertToString( memory ) );
+        controller.updateInput( LocaleUtil.convertToString( memory.toPlainString(), this ) );
         refreshMemoryView();
     }
 
     private void refreshMemoryView() {
         if( !(memory.toPlainString().equals( "0" )) ) {
-            memoryView.setText( "MEM = " + controller.convertToString( memory ) );
+            memoryView.setText( "MEM = " + LocaleUtil.convertToString( memory.toPlainString(), this ) );
         } else {
             memoryView.setText( "" );
         }

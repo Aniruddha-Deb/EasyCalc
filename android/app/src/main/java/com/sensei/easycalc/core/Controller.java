@@ -3,6 +3,7 @@ package com.sensei.easycalc.core;
 import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
 import com.sensei.easycalc.dao.DatabaseHelper;
+import com.sensei.easycalc.util.LocaleUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Controller {
 
     public Controller( MainActivity activity ) {
         this.activity = activity;
+        answer = new BigDecimal( "0" );
         createComponents();
     }
 
@@ -48,49 +50,62 @@ public class Controller {
     private void processCommand( String cmd ) {
         if( cmd.equals( CMD_CLEAR ) ) {
             expression.delete( 0, expression.length() );
-            refreshOutput( true );
+            refreshOutput();
         }
         else if( cmd.equals( CMD_DELETE ) ) {
             try {
                 expression.delete( expression.length()-1, expression.length() );
-                refreshOutput( true );
+                refreshOutput();
             }
             catch( StringIndexOutOfBoundsException e ) {
                 // TODO stuff here!
             }
         }
         else if( cmd.equals( CMD_EQUALS ) ) {
-            updateHistory();
+            saveAnswerToHistory();
             outputAnswerOnExpressionView();
         }
     }
 
-    private void updateHistory() {
-        DatabaseHelper.getInstance().addTransactionToDatabase( expression.toString(),
-                                                                         convertToString( answer ) );
+    private void saveAnswerToHistory() {
+        DatabaseHelper.getInstance().addTransactionToDatabase(
+                LocaleUtil.convertToString( expression.toString(), activity ),
+                LocaleUtil.convertToString( answer.toPlainString(), activity ) );
     }
 
     private void outputAnswerOnExpressionView() {
-        expression = new StringBuilder( convertToString( answer ) );
-        refreshOutput( true );
+        expression = new StringBuilder( LocaleUtil.convertToString( answer.toPlainString(), activity ) );
+        answer = new BigDecimal( "0" );
+        refreshOutput();
     }
 
-    private void refreshOutput( boolean showSeparator ) {
+    private void refreshOutput() {
         lexer.reset( expression.toString() );
-        ArrayList<Token> tokens = lexer.getAllTokens() ;
-        activity.refreshOutput( tokens, showSeparator );
+        String s = convertTokensToExpression( lexer.getAllTokens() );
+        activity.refreshOutput( s );
 
         calculateAndShowAnswer();
+    }
+
+    private String convertTokensToExpression( ArrayList<Token> tokens ) {
+        String s = "";
+
+        for( Token t : tokens ) {
+            if( t.getTokenType() == Token.NUMERIC ) {
+                s += " " + LocaleUtil.convertToString( t.getTokenValue(), activity );
+            }
+            else {
+                s += " " + t.getTokenValue();
+            }
+        }
+        return s;
     }
 
     private void calculateAndShowAnswer() {
         lexer.reset( expression.toString() );
         try {
             answer = evaluator.evaluate( lexer );
-            // complex logic
-            if( !( convertToString( answer ).equals( expression.toString().replace( " ", "" ) ) ) ) {
-                showAnswer( answer );
-            }
+            showAnswer( answer );
         }
         catch ( Exception e ) {
             // do nothing!
@@ -98,20 +113,8 @@ public class Controller {
     }
 
     private void showAnswer( BigDecimal answer ) {
-        String s = convertToString( answer );
+        String s = LocaleUtil.convertToString( answer.toPlainString(), activity );
         activity.showAnswer( s );
-    }
-
-    public String convertToString( BigDecimal d ) {
-        StringBuilder b = new StringBuilder( d.toPlainString() );
-
-        for( int i=0; i<b.length(); i++ ) {
-            if( b.charAt( i ) == '-' ) {
-                b.replace( i, i+1, "–" );
-            }
-        }
-
-        return b.toString();
     }
 
     public void updateInput( String inputEntered ) {
@@ -119,8 +122,9 @@ public class Controller {
             processCommand( inputEntered ) ;
         }
         else {
+            expression.append( " " ) ;
             expression.append( inputEntered ) ;
-            refreshOutput( true );
+            refreshOutput();
         }
     }
 
