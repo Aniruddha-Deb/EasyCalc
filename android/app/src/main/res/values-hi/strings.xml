@@ -13,6 +13,13 @@
     <string name="nine">९</string>
     <string name="zero">०</string>
 
+    <string name="mem_plus">यादाश से जोड़े (M+)</string>
+    <string name="mem_minus">यादाश से घटाए (M-)</string>
+    <string name="mem_clear">यादाश साफ़ करें (MC)</string>
+    <string name="mem_recall">यादाश स्मरण करें (MR)</string>
     <string name="history">इतिहास</string>
     <string name="memory">याद</string>
+
+    <string name="memoryAddError">यादाश से जवाब जोड़ा न जा सका |</string>
+    <string name="memorySubtractError">यादाश से जवाब घटाया न जा सका |</string>
 </resources>

@@ -8,11 +8,12 @@ import com.sensei.easycalc.util.LocaleUtil;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Controller {
+public class ExpressionController {
+
+    private static final String TAG = "ExpressionController";
 
     private StringBuilder expression = null;
     private Lexer         lexer      = null;
-    private BigDecimal    answer     = null;
     private Evaluator     evaluator  = null;
     private MainActivity  activity   = null;
 
@@ -21,9 +22,8 @@ public class Controller {
     private static String   CMD_DELETE = null;
     private static String[] CMDS       = null;
 
-    public Controller( MainActivity activity ) {
+    public ExpressionController(MainActivity activity ) {
         this.activity = activity;
-        answer = new BigDecimal( "0" );
         createComponents();
     }
 
@@ -69,25 +69,34 @@ public class Controller {
 
     private void saveAnswerToHistory() {
         DatabaseHelper.getInstance().addTransactionToDatabase(
-                LocaleUtil.convertToString( expression.toString(), activity ),
-                LocaleUtil.convertToString( answer.toPlainString(), activity ) );
+                getDisplayableExpression(),
+                getDisplayableAnswer() );
     }
 
     private void outputAnswerOnExpressionView() {
-        expression = new StringBuilder( LocaleUtil.convertToString( answer.toPlainString(), activity ) );
-        answer = new BigDecimal( "0" );
+        expression = new StringBuilder( getDisplayableAnswer() );
         refreshOutput();
     }
 
     private void refreshOutput() {
-        lexer.reset( expression.toString() );
-        String s = convertTokensToExpression( lexer.getAllTokens() );
-        activity.refreshOutput( s );
-
-        calculateAndShowAnswer();
+        String expr = getDisplayableExpression();
+        String ans = getDisplayableAnswer();
+        activity.showExpression( expr );
+        activity.showAnswer( ans );
     }
 
-    private String convertTokensToExpression( ArrayList<Token> tokens ) {
+    private String getDisplayableAnswer() {
+        BigDecimal answer = getAnswer();
+        if( answer == null ) {
+            return "";
+        }
+        return LocaleUtil.convertToString( answer.toPlainString(), activity );
+    }
+
+    private String getDisplayableExpression() {
+        lexer.reset( expression.toString() );
+        ArrayList<Token> tokens = lexer.getAllTokens();
+
         String s = "";
 
         for( Token t : tokens ) {
@@ -101,20 +110,13 @@ public class Controller {
         return s;
     }
 
-    private void calculateAndShowAnswer() {
+    public BigDecimal getAnswer() {
         lexer.reset( expression.toString() );
         try {
-            answer = evaluator.evaluate( lexer );
-            showAnswer( answer );
+            return evaluator.evaluate( lexer );
+        } catch( Exception ex ) {
+            return null;
         }
-        catch ( Exception e ) {
-            // do nothing!
-        }
-    }
-
-    private void showAnswer( BigDecimal answer ) {
-        String s = LocaleUtil.convertToString( answer.toPlainString(), activity );
-        activity.showAnswer( s );
     }
 
     public void updateInput( String inputEntered ) {
@@ -122,13 +124,9 @@ public class Controller {
             processCommand( inputEntered ) ;
         }
         else {
-            expression.append( " " ) ;
             expression.append( inputEntered ) ;
             refreshOutput();
         }
     }
 
-    public BigDecimal getAnswer() {
-        return answer;
-    }
 }

@@ -8,6 +8,10 @@ public class LocaleUtil {
     
     public static String convertToString( String decimalString, Context ctx ) {
 
+        if( decimalString == null ) {
+            return "";
+        }
+
         for( char c : decimalString.toCharArray() ) {
             String strToReplace = c + "";
             switch( c ) {

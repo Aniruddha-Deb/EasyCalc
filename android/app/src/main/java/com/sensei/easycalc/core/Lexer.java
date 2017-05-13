@@ -1,7 +1,10 @@
 package com.sensei.easycalc.core;
 
+import android.content.Context;
+
 import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
+import com.sensei.easycalc.util.LocaleUtil;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -10,6 +13,8 @@ public class Lexer {
 
     private String input      = null;
     private int    currentPos = 0;
+
+    private Context ctx = null;
 
     private Stack<Token> pushedBackTokens = new Stack<>() ;
 
@@ -21,7 +26,8 @@ public class Lexer {
     private char rbracket = (char)0;
 
     public Lexer( String input, MainActivity activity ) {
-        this.input = input;
+        this.ctx = activity;
+        this.input = LocaleUtil.convertToString( input, activity );
 
         add      = activity.getString( R.string.add ).charAt(0);
         subtract = activity.getString( R.string.subtract ).charAt(0);
@@ -42,7 +48,7 @@ public class Lexer {
     }
 
     public void reset( String input ) {
-        this.input = input;
+        this.input = LocaleUtil.convertToString( input, ctx );
         currentPos = 0;
         pushedBackTokens = new Stack<>();
     }

@@ -8,8 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.sensei.easycalc.core.Controller;
+import com.sensei.easycalc.core.ExpressionController;
 import com.sensei.easycalc.dao.DatabaseHelper;
 import com.sensei.easycalc.ui.adapter.BottomViewPagerAdapter;
 import com.sensei.easycalc.util.LocaleUtil;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView expressionView = null;
     private TextView answerView = null;
     private TextView memoryView = null;
-    private Controller controller = null;
+    private ExpressionController controller = null;
 
     private BigDecimal memory = null;
 
@@ -52,9 +53,9 @@ public class MainActivity extends AppCompatActivity{
         answerView = (TextView)findViewById( R.id.answerView );
         AutofitHelper.create( answerView );
         memoryView = (TextView)findViewById( R.id.memoryView );
-        controller = new Controller( this );
+        controller = new ExpressionController( this );
 
-        memory = new BigDecimal( "0" );
+        memory = new BigDecimal( 0 );
     }
 
     @Override
@@ -67,10 +68,8 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void refreshOutput( String str ) {
-        expressionView.setText( "" );
+    public void showExpression( String str ) {
         expressionView.setText( str );
-        answerView.setText( "" );
     }
 
     public void showAnswer( String answer ) {
@@ -155,31 +154,43 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void onMemPlusButtonClick() {
-        memory = memory.add( controller.getAnswer() );
+        BigDecimal answer = controller.getAnswer();
+        if( answer == null ) {
+            Toast.makeText( this, R.string.memoryAddError, Toast.LENGTH_LONG ).show();
+        }
+        else {
+            memory = memory.add( answer );
+        }
         refreshMemoryView();
     }
 
     private void onMemMinusButtonClick() {
-        memory = memory.subtract( controller.getAnswer() );
+        BigDecimal answer = controller.getAnswer();
+        if( answer == null ) {
+            Toast.makeText( this, R.string.memorySubtractError, Toast.LENGTH_LONG ).show();
+        }
+        else {
+            memory = memory.subtract( answer );
+        }
         refreshMemoryView();
     }
 
     private void onMemClearButtonClick() {
-        memory = new BigDecimal( 0 );
+        memory = null;
         refreshMemoryView();
     }
 
     private void onMemRecallButtonClick() {
-        controller.updateInput( "C" );
-        controller.updateInput( LocaleUtil.convertToString( memory.toPlainString(), this ) );
-        refreshMemoryView();
+        if( memory != null ) {
+            controller.updateInput( LocaleUtil.convertToString( memory.toPlainString(), this ) );
+        }
     }
 
     private void refreshMemoryView() {
-        if( !(memory.toPlainString().equals( "0" )) ) {
-            memoryView.setText( "MEM = " + LocaleUtil.convertToString( memory.toPlainString(), this ) );
-        } else {
+        if( memory == null || memory.equals( BigDecimal.ZERO ) ) {
             memoryView.setText( "" );
+        } else {
+            memoryView.setText( "MEM = " + LocaleUtil.convertToString( memory.toPlainString(), this ) );
         }
     }
 }
