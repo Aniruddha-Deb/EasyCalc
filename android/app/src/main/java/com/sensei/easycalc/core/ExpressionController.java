@@ -59,7 +59,7 @@ public class ExpressionController {
                 refreshOutput();
             }
             catch( StringIndexOutOfBoundsException e ) {
-                // TODO stuff here!
+                // do nothing
             }
         }
         else if( cmd.equals( CMD_EQUALS ) ) {
@@ -69,9 +69,17 @@ public class ExpressionController {
     }
 
     private void saveAnswerToHistory() {
-        DatabaseHelper.getInstance().addTransactionToDatabase(
-                getDisplayableExpression(),
-                getDisplayableAnswer() );
+        Log.d( TAG, getDisplayableAnswer() );
+        Log.d( TAG, getDisplayableExpression() );
+        if( ! ( getDisplayableAnswer().equals( "" ) || getDisplayableExpression().equals( "" ) ) ) {
+            String ansCheck = getDisplayableAnswer().replace( "-", "–" );
+            String exprCheck = getDisplayableExpression().trim().replace( "\\s", "" );
+            if( !( ansCheck.equals( exprCheck ) ) ) {
+                DatabaseHelper.getInstance().addTransactionToDatabase(
+                        getDisplayableExpression(),
+                        getDisplayableAnswer() );
+            }
+        }
     }
 
     private void outputAnswerOnExpressionView() {
@@ -95,7 +103,6 @@ public class ExpressionController {
     }
 
     private String getDisplayableExpression() {
-        Log.d( TAG, "Expression input is " + expression.toString() );
         lexer.reset( expression.toString() );
         ArrayList<Token> tokens = lexer.getAllTokens();
 
@@ -104,7 +111,6 @@ public class ExpressionController {
         for( Token t : tokens ) {
             s += " " + t.getTokenValue();
         }
-        Log.d( TAG, "Expression output is " + s );
         return s;
     }
 

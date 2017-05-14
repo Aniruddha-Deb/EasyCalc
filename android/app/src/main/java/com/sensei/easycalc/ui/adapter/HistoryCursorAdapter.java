@@ -33,13 +33,10 @@ public class HistoryCursorAdapter extends CursorAdapter {
     @Override
     public void bindView( View view, Context context, Cursor cursor ) {
         String exprString = cursor.getString( cursor.getColumnIndexOrThrow( "expression" ) );
-        Log.d( TAG, "Expr string from database is " + exprString );
         String expression = LocaleUtil.convertToString( exprString, c );
-        Log.d( TAG, "Expression is " + expression );
         String answer =
                 LocaleUtil.convertToString(
                         cursor.getString( cursor.getColumnIndexOrThrow( "answer" ) ), c );
-        Log.d( TAG, "Answer is " + expression );
         String output = expression + " = " + answer;
 
         TextView outputView = (TextView)view.findViewById( R.id.historyItem );

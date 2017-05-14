@@ -1,7 +1,6 @@
 package com.sensei.easycalc.core;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.sensei.easycalc.R;
 
@@ -48,7 +47,6 @@ public class Lexer {
 
     public void reset( String input ) {
         this.input = input;
-        Log.d( "Lexer", "input string is " + input );
         currentPos = 0;
         pushedBackTokens = new Stack<>();
     }
