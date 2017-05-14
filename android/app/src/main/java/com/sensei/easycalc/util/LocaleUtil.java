@@ -61,6 +61,10 @@ public class LocaleUtil {
                 
                 case '-':
                     decimalString = decimalString.replaceFirst( strToReplace, ctx.getString( R.string.subtract ) );
+                    break;
+
+                default:
+                    // do nothing
             }
         }
         return decimalString;

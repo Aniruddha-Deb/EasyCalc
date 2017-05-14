@@ -1,7 +1,9 @@
 package com.sensei.easycalc;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
@@ -20,6 +22,8 @@ import java.math.BigDecimal;
 import me.grantland.widget.AutofitHelper;
 
 public class MainActivity extends AppCompatActivity{
+
+    private static final String TAG = "MainActivity";
 
     private TextView expressionView = null;
     private TextView answerView = null;
@@ -69,11 +73,11 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void showExpression( String str ) {
-        expressionView.setText( str );
+        expressionView.setText( LocaleUtil.convertToString( str, this ) );
     }
 
     public void showAnswer( String answer ) {
-        answerView.setText( answer );
+        answerView.setText( LocaleUtil.convertToString( answer, this ) );
     }
 
     public void onNonNumpadButtonClick( View view ) {
@@ -122,6 +126,25 @@ public class MainActivity extends AppCompatActivity{
 
     public void onZeroButtonClick( View view ) {
         controller.updateInput( "0" );
+    }
+
+    public void onHistoryDeleteButtonClick( View view ) {
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        builder.setMessage( R.string.clear_history_prompt );
+        builder.setPositiveButton( "Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DatabaseHelper.getInstance().clearHistory();
+                pager.getAdapter().notifyDataSetChanged();
+            }
+        } );
+        builder.setNegativeButton( "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick( DialogInterface dialogInterface, int i ) {
+                // do nothing
+            }
+        } );
+        builder.create().show();
     }
 
     public void onMemoryButtonClick( View view ) {

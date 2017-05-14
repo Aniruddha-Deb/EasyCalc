@@ -1,9 +1,10 @@
 package com.sensei.easycalc.core;
 
+import android.util.Log;
+
 import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
 import com.sensei.easycalc.dao.DatabaseHelper;
-import com.sensei.easycalc.util.LocaleUtil;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -90,23 +91,20 @@ public class ExpressionController {
         if( answer == null ) {
             return "";
         }
-        return LocaleUtil.convertToString( answer.toPlainString(), activity );
+        return answer.toPlainString();
     }
 
     private String getDisplayableExpression() {
+        Log.d( TAG, "Expression input is " + expression.toString() );
         lexer.reset( expression.toString() );
         ArrayList<Token> tokens = lexer.getAllTokens();
 
         String s = "";
 
         for( Token t : tokens ) {
-            if( t.getTokenType() == Token.NUMERIC ) {
-                s += " " + LocaleUtil.convertToString( t.getTokenValue(), activity );
-            }
-            else {
-                s += " " + t.getTokenValue();
-            }
+            s += " " + t.getTokenValue();
         }
+        Log.d( TAG, "Expression output is " + s );
         return s;
     }
 

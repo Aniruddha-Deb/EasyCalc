@@ -1,10 +1,9 @@
 package com.sensei.easycalc.core;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
-import com.sensei.easycalc.util.LocaleUtil;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -25,16 +24,16 @@ public class Lexer {
     private char lbracket = (char)0;
     private char rbracket = (char)0;
 
-    public Lexer( String input, MainActivity activity ) {
-        this.ctx = activity;
-        this.input = LocaleUtil.convertToString( input, activity );
+    public Lexer( String input, Context ctx ) {
+        this.ctx = ctx;
+        this.input = input;
 
-        add      = activity.getString( R.string.add ).charAt(0);
-        subtract = activity.getString( R.string.subtract ).charAt(0);
-        multiply = activity.getString( R.string.multiply ).charAt(0);
-        divide   = activity.getString( R.string.divide ).charAt(0);
-        lbracket = activity.getString( R.string.lbracket ).charAt(0);
-        rbracket = activity.getString( R.string.rbracket ).charAt(0);
+        add      = ctx.getString( R.string.add ).charAt(0);
+        subtract = ctx.getString( R.string.subtract ).charAt(0);
+        multiply = ctx.getString( R.string.multiply ).charAt(0);
+        divide   = ctx.getString( R.string.divide ).charAt(0);
+        lbracket = ctx.getString( R.string.lbracket ).charAt(0);
+        rbracket = ctx.getString( R.string.rbracket ).charAt(0);
     }
 
     public ArrayList<Token> getAllTokens() {
@@ -48,7 +47,8 @@ public class Lexer {
     }
 
     public void reset( String input ) {
-        this.input = LocaleUtil.convertToString( input, ctx );
+        this.input = input;
+        Log.d( "Lexer", "input string is " + input );
         currentPos = 0;
         pushedBackTokens = new Stack<>();
     }

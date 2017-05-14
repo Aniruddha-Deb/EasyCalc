@@ -47,17 +47,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         transactionValues.put( "expression", expression );
         transactionValues.put( "answer", answer );
         getWritableDatabase().insert( HISTORY_TABLE, null, transactionValues );
+    }
 
-        Log.d( TAG, "Inserted transaction into database" );
-        Log.d( TAG, "Database contents are:" );
-        Cursor c = getReadableDatabase().query( HISTORY_TABLE,
-                                                new String[]{ EXPRESSION_COLUMN, ANSWER_COLUMN },
-                                                null, null, null, null, null );
-        while( c.moveToNext() ) {
-                Log.d( TAG, "\tExpression = " + c.getString( 0 ) );
-                Log.d( TAG, "\tAnswer = " + c.getString( 1 ) );
-        }
-        c.close();
+    public void clearHistory() {
+        getWritableDatabase().execSQL( "DELETE FROM " + HISTORY_TABLE );
     }
 
     public Cursor getHistoryCursor() {
@@ -86,7 +79,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             try {
                 db.execSQL( dropQuery );
             } catch( Exception e ) {
-                Log.d( TAG, "!Error while dopping a table!" );
+                Log.d( TAG, "!Error while dropping a table!" );
             }
         }
         c.close();

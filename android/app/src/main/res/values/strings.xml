@@ -31,4 +31,7 @@
 
     <string name="memoryAddError">Could not add answer to memory.</string>
     <string name="memorySubtractError">Could not subtract answer from memory.</string>
+
+    <string name="clear_history_prompt">This will delete all your history.
+        Are you sure you want to continue?</string>
 </resources>
