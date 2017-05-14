@@ -6,6 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.sensei.easycalc"
+        vectorDrawables.useSupportLibrary = true
         minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
@@ -24,6 +25,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'me.grantland:autofittextview:0.2.1'
+    compile 'com.balysv:material-ripple:1.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
