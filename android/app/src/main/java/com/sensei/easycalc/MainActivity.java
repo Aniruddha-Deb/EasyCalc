@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void setUpViewPager() {
         pager = (ViewPager)findViewById( R.id.viewPager );
-        BottomViewPagerAdapter adapter = new BottomViewPagerAdapter( getSupportFragmentManager() );
+        BottomViewPagerAdapter adapter = new BottomViewPagerAdapter( getSupportFragmentManager(), controller );
         pager.setAdapter( adapter );
         pager.addOnPageChangeListener( adapter );
         pager.setCurrentItem( 1 );

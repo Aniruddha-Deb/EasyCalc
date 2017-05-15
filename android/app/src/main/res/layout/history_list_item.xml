@@ -11,5 +11,5 @@
         android:id="@+id/historyItem"
         android:padding="20sp"
         android:textColor="@android:color/black"
-        android:background="@color/colorPrimary"/>
+        android:background="@drawable/bg_ripple"/>
 </LinearLayout>

@@ -4,6 +4,7 @@ import com.sensei.easycalc.MainActivity;
 import com.sensei.easycalc.R;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Evaluator {
 
@@ -26,6 +27,7 @@ public class Evaluator {
     public BigDecimal evaluate( Lexer lexer ) throws Exception{
         BigDecimal value;
         value = calculateASOp( lexer );
+        value = value.setScale( 10, RoundingMode.HALF_UP );
         Token token = lexer.getNextToken();
 
         while ( token != null ) {
@@ -47,12 +49,13 @@ public class Evaluator {
                 break ;
             }
         }
-        return value;
+        return value.stripTrailingZeros();
     }
 
     private BigDecimal calculateASOp( Lexer lexer ) throws Exception{
         BigDecimal value ;
         value = calculateMDOp( lexer );
+        value = value.setScale( 10, RoundingMode.HALF_UP );
         Token token = lexer.getNextToken();
 
         while ( token != null ) {
@@ -79,6 +82,7 @@ public class Evaluator {
 
     private BigDecimal calculateMDOp( Lexer lexer ) throws Exception{
         BigDecimal value = new BigDecimal( "0" );
+        value = value.setScale( 10, RoundingMode.HALF_UP );
         Token token = lexer.getNextToken();
         int   sign = 1 ;
 
