@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity{
 
     private void setUpViewPager() {
         pager = (ViewPager)findViewById( R.id.viewPager );
-        BottomViewPagerAdapter adapter = new BottomViewPagerAdapter( getSupportFragmentManager(), controller );
+        BottomViewPagerAdapter adapter = new BottomViewPagerAdapter( getSupportFragmentManager(), this );
         pager.setAdapter( adapter );
         pager.addOnPageChangeListener( adapter );
         pager.setCurrentItem( 1 );
@@ -80,7 +79,11 @@ public class MainActivity extends AppCompatActivity{
         answerView.setText( LocaleUtil.convertToString( answer, this ) );
     }
 
-    public void onNonNumpadButtonClick( View view ) {
+    public ExpressionController getController() {
+        return controller;
+    }
+
+    public void onNonNumpadButtonClick(View view ) {
         controller.updateInput( ((Button)view).getText().toString() );
     }
 
@@ -128,6 +131,32 @@ public class MainActivity extends AppCompatActivity{
         controller.updateInput( "0" );
     }
 
+    public void onHistoryButtonClick( View view ) {
+        ImageButton b = (ImageButton)view;
+
+        if( b.getTag().equals( getString( R.string.history ) ) ) {
+            pager.setCurrentItem( 0 );
+            b.setImageResource( R.drawable.calculator );
+            b.setTag( getString( R.string.numpad ) );
+        }
+        else {
+            pager.setCurrentItem( 1 );
+            b.setTag( getString( R.string.history ) );
+            b.setImageResource( R.drawable.history );
+        }
+    }
+
+    public void animateHistoryButton( ImageButton b ) {
+        if( pager.getCurrentItem() == 0 ) {
+            b.setImageResource( R.drawable.calculator );
+            b.setTag( getString( R.string.numpad ) );
+        }
+        else {
+            b.setTag( getString( R.string.history ) );
+            b.setImageResource( R.drawable.history );
+        }
+    }
+
     public void onHistoryDeleteButtonClick( View view ) {
         AlertDialog.Builder builder = new AlertDialog.Builder( this );
         builder.setMessage( R.string.clear_history_prompt );
@@ -147,39 +176,14 @@ public class MainActivity extends AppCompatActivity{
         builder.create().show();
     }
 
-    public void onMemoryButtonClick( View view ) {
-        PopupMenu memoryMenu = new PopupMenu( this, view );
-        memoryMenu.inflate( R.menu.memory_menu );
-        memoryMenu.setOnMenuItemClickListener( new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick( MenuItem item ) {
-                switch( item.getItemId() ) {
-                    case R.id.mem_plus:
-                        onMemPlusButtonClick();
-                        return true;
-
-                    case R.id.mem_minus:
-                        onMemMinusButtonClick();
-                        return true;
-
-                    case R.id.mem_clear:
-                        onMemClearButtonClick();
-                        return true;
-
-                    case R.id.mem_recall:
-                        onMemRecallButtonClick();
-                        return true;
-                }
-                return false;
-            }
-        } );
-        memoryMenu.show();
-    }
-
-    private void onMemPlusButtonClick() {
+    public void onMemPlusButtonClick( View view ) {
         BigDecimal answer = controller.getAnswer();
         if( answer == null ) {
             Toast.makeText( this, R.string.memoryAddError, Toast.LENGTH_LONG ).show();
+        }
+        else if( memory == null ){
+            memory = new BigDecimal( 0 );
+            memory = memory.add( answer );
         }
         else {
             memory = memory.add( answer );
@@ -187,10 +191,14 @@ public class MainActivity extends AppCompatActivity{
         refreshMemoryView();
     }
 
-    private void onMemMinusButtonClick() {
+    public void onMemMinusButtonClick( View view ) {
         BigDecimal answer = controller.getAnswer();
         if( answer == null ) {
             Toast.makeText( this, R.string.memorySubtractError, Toast.LENGTH_LONG ).show();
+        }
+        else if( memory == null ){
+            memory = new BigDecimal( 0 );
+            memory = memory.subtract( answer );
         }
         else {
             memory = memory.subtract( answer );
@@ -198,12 +206,12 @@ public class MainActivity extends AppCompatActivity{
         refreshMemoryView();
     }
 
-    private void onMemClearButtonClick() {
+    public void onMemClearButtonClick( View view ) {
         memory = null;
         refreshMemoryView();
     }
 
-    private void onMemRecallButtonClick() {
+    public void onMemRecallButtonClick( View view ) {
         if( memory != null ) {
             controller.updateInput( LocaleUtil.convertToString( memory.toPlainString(), this ) );
         }

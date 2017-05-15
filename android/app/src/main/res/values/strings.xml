@@ -15,7 +15,8 @@
     <string name="mem_clear">Clear memory (MC)</string>
     <string name="mem_recall">Recall memory (MR)</string>
     <string name="memory">memory</string>
-    <string name="history">history</string>
+    <string name="history">HISTORY</string>
+    <string name="numpad">NUMPAD</string>
 
     <string name="one">1</string>
     <string name="two">2</string>

@@ -5,8 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.ImageButton;
 
-import com.sensei.easycalc.core.ExpressionController;
+import com.sensei.easycalc.MainActivity;
+import com.sensei.easycalc.R;
 import com.sensei.easycalc.ui.fragment.HistoryFragment;
 import com.sensei.easycalc.ui.fragment.NumpadFragment;
 
@@ -16,18 +18,18 @@ public class BottomViewPagerAdapter extends FragmentStatePagerAdapter
     private static final String TAG = "BottomViewPagerAdapter";
 
     public static final int NUM_VIEWS = 2;
-    private ExpressionController c = null;
+    private MainActivity activity = null;
 
-    public BottomViewPagerAdapter(FragmentManager fm, ExpressionController c) {
+    public BottomViewPagerAdapter( FragmentManager fm, MainActivity a ) {
         super( fm );
-        this.c = c;
+        this.activity = a;
     }
 
     @Override
     public Fragment getItem( int position ) {
         switch( position ) {
             case 0:
-                return new HistoryFragment().withController( c );
+                return new HistoryFragment().withController( activity.getController() );
 
             case 1:
                 return new NumpadFragment();
@@ -58,6 +60,7 @@ public class BottomViewPagerAdapter extends FragmentStatePagerAdapter
         if( position == 0 ) {
             notifyDataSetChanged();
         }
+        activity.animateHistoryButton( (ImageButton)activity.findViewById( R.id.historyButton ) );
     }
 
     @Override
