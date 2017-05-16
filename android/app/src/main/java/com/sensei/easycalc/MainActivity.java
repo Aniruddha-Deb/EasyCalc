@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
+        DatabaseHelper.createInstance( this );
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
-        DatabaseHelper.createInstance( this );
         initializeComponents();
         setUpViewPager();
     }
