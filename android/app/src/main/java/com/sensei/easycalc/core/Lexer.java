@@ -12,19 +12,17 @@ public class Lexer {
     private String input      = null;
     private int    currentPos = 0;
 
-    private Context ctx = null;
-
     private Stack<Token> pushedBackTokens = new Stack<>() ;
 
-    private char add      = (char)0;
-    private char subtract = (char)0;
-    private char multiply = (char)0;
-    private char divide   = (char)0;
-    private char lbracket = (char)0;
-    private char rbracket = (char)0;
+    public char add      = (char)0;
+    public char subtract = (char)0;
+    public char multiply = (char)0;
+    public char rbracket = (char)0;
+    public char divide   = (char)0;
+    public char lbracket = (char)0;
+    public char sqrt     = (char)0;
 
     public Lexer( String input, Context ctx ) {
-        this.ctx = ctx;
         this.input = input;
 
         add      = ctx.getString( R.string.add ).charAt(0);
@@ -33,6 +31,7 @@ public class Lexer {
         divide   = ctx.getString( R.string.divide ).charAt(0);
         lbracket = ctx.getString( R.string.lbracket ).charAt(0);
         rbracket = ctx.getString( R.string.rbracket ).charAt(0);
+        sqrt     = ctx.getString( R.string.sqrt ).charAt( 0 );
     }
 
     public ArrayList<Token> getAllTokens() {
@@ -103,7 +102,8 @@ public class Lexer {
     }
 
     private boolean isOperator( char ch ) {
-        return ch == add || ch == subtract || ch == multiply || ch == divide || ch == '-';
+        return ch == add || ch == subtract || ch == multiply || ch == divide || ch == '-' ||
+               ch == sqrt;
     }
 
     private boolean isPartOfNumToken( char ch ) {

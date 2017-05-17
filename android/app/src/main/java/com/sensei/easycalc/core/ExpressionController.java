@@ -119,6 +119,7 @@ public class ExpressionController {
         try {
             return evaluator.evaluate( lexer );
         } catch( Exception ex ) {
+            Log.e( TAG, ex.getMessage() );
             return null;
         }
     }
@@ -128,8 +129,18 @@ public class ExpressionController {
             processCommand( inputEntered ) ;
         }
         else {
-            expression.append( inputEntered ) ;
+            appendToExpression( inputEntered ) ;
             refreshOutput();
+        }
+    }
+
+    private void appendToExpression( String inputEntered ) {
+        if( inputEntered.equals( lexer.sqrt+"" ) ) {
+            expression.append( inputEntered );
+            expression.append( lexer.lbracket );
+        }
+        else {
+            expression.append( inputEntered );
         }
     }
 

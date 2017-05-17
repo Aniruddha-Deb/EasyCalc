@@ -14,6 +14,7 @@ public class Evaluator {
     private String divide   = null;
     private String lbracket = null;
     private String rbracket = null;
+    private String sqrt     = null;
 
     public Evaluator( MainActivity activity ) {
         add      = activity.getString( R.string.add );
@@ -22,6 +23,7 @@ public class Evaluator {
         divide   = activity.getString( R.string.divide );
         lbracket = activity.getString( R.string.lbracket );
         rbracket = activity.getString( R.string.rbracket );
+        sqrt     = activity.getString( R.string.sqrt );
     }
 
     public BigDecimal evaluate( Lexer lexer ) throws Exception{
@@ -80,6 +82,19 @@ public class Evaluator {
         return value;
     }
 
+    public static BigDecimal sqrt( BigDecimal A ) {
+        BigDecimal x0 = new BigDecimal("0");
+        BigDecimal x1 = new BigDecimal(Math.sqrt(A.doubleValue()));
+        while (!x0.equals(x1)) {
+            x0 = x1;
+            x1 = A.divide(x0, BigDecimal.ROUND_HALF_UP);
+            x1 = x1.add(x0);
+            x1 = x1.divide( BigDecimal.valueOf( 2 ), BigDecimal.ROUND_HALF_UP);
+
+        }
+        return x1;
+    }
+
     private BigDecimal calculateMDOp( Lexer lexer ) throws Exception{
         BigDecimal value = new BigDecimal( "0" );
         value = value.setScale( 10, RoundingMode.HALF_UP );
@@ -107,6 +122,10 @@ public class Evaluator {
 
         if( token.getTokenType() == Token.NUMERIC ) {
             value = new BigDecimal( token.getTokenValue() );
+        }
+        else if( token.getTokenValue().equals( sqrt ) ) {
+            value = evaluate( lexer );
+            value = sqrt( value );
         }
         else if( token.getTokenType() == Token.PARENTHESES ) {
 

@@ -21,7 +21,6 @@
         android:paddingBottom="10sp"
         android:paddingTop="20sp"
         android:textColor="@android:color/white"
-        android:textAlignment="viewEnd"
         android:gravity="end|center_horizontal"
         android:background="@color/colorPrimaryDark"/>
     </TableRow>
@@ -44,7 +43,6 @@
             android:id="@+id/answerView"
             android:textSize="20sp"
             android:maxLines="1"
-            android:textAlignment="viewEnd"
             android:gravity="end"
             android:paddingStart="10sp"
             android:paddingEnd="10sp"/>
@@ -62,7 +60,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="M+"
+            android:text="@string/mem_plus"
             android:onClick="onMemPlusButtonClick"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -75,7 +73,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:onClick="onMemMinusButtonClick"
-            android:text="M-"
+            android:text="@string/mem_minus"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_weight="1"/>
@@ -87,7 +85,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:onClick="onMemClearButtonClick"
-            android:text="MC"
+            android:text="@string/mem_clear"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_weight="1"/>
@@ -98,7 +96,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="MR"
+            android:text="@string/mem_recall"
             android:onClick="onMemRecallButtonClick"
             android:textColor="@android:color/white"
             android:textSize="20sp"
@@ -118,7 +116,8 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="√x"
+            android:onClick="onNonNumpadButtonClick"
+            android:text="@string/sqrt"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_weight="1"/>
@@ -129,7 +128,7 @@
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
-            android:text="x\u00B2"
+            android:text="@string/square"
             android:textColor="@android:color/white"
             android:textSize="20sp"
             android:layout_weight="1"/>
